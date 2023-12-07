@@ -18,37 +18,13 @@ public class GeneradorContrasegnaASCII {
         Generacion de passsword usando ASCII
         Con ventanas JOptionPane V2
         */
-        char caracter;   
 
         byte tamanio = Byte.parseByte(JOptionPane.showInputDialog("Ingrese el tamaño de su contraseña"));
 
-        String password = "";
-
-        for (int i = 0; i < tamanio; i++) {
-            
-            int eleccion=((int) Math.floor(Math.random()*3+1));
-            
-            
-            switch (eleccion){
-                case 1: 
-                    char minusculas = ((char)((int) Math.floor(Math.random()*(123-97)+97)));
-                        password += minusculas;
-                    break;
-                       
-                case 2:
-                    char mayusculas = ((char)((int) Math.floor(Math.random()*(91-65)+65)));
-                        password += mayusculas;
-                    break;
-                    
-                case 3: 
-                    char numeros = ((char)((int) Math.floor(Math.random()*(58-48)+48)));
-                        password += numeros;
-                    break;
-            
-            }
-            
-        }
-        JOptionPane.showMessageDialog(null, "su contraseña es: " + password);
+        Password contraseña = new Password(tamanio);
+        
+       
+        JOptionPane.showMessageDialog(null, contraseña.toString());
 
     }
 
