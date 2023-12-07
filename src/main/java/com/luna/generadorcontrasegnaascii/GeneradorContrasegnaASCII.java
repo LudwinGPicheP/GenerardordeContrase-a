@@ -14,15 +14,10 @@ import javax.swing.JOptionPane;
 public class GeneradorContrasegnaASCII {
 
     public static void main(String[] args) {
-
         /*
         Generacion de passsword usando ASCII
         Con ventanas JOptionPane V2
-        
         */
-        
-        
-        
         char caracter;   
 
         byte tamanio = Byte.parseByte(JOptionPane.showInputDialog("Ingrese el tamaño de su contraseña"));
@@ -30,12 +25,29 @@ public class GeneradorContrasegnaASCII {
         String password = "";
 
         for (int i = 0; i < tamanio; i++) {
-            int numeroAleatorio = new Random().nextInt(75) + 48;
-            caracter = (char) numeroAleatorio;
-
-            password += caracter;
+            
+            int eleccion=((int) Math.floor(Math.random()*3+1));
+            
+            
+            switch (eleccion){
+                case 1: 
+                    char minusculas = ((char)((int) Math.floor(Math.random()*(123-97)+97)));
+                        password += minusculas;
+                    break;
+                       
+                case 2:
+                    char mayusculas = ((char)((int) Math.floor(Math.random()*(91-65)+65)));
+                        password += mayusculas;
+                    break;
+                    
+                case 3: 
+                    char numeros = ((char)((int) Math.floor(Math.random()*(58-48)+48)));
+                        password += numeros;
+                    break;
+            
+            }
+            
         }
-      
         JOptionPane.showMessageDialog(null, "su contraseña es: " + password);
 
     }
