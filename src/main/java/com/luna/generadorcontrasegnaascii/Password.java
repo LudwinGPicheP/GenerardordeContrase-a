@@ -9,17 +9,36 @@ public class Password {
     
     private String contraseña;
     private byte tamanio;
-
-    public Password(byte tamanio) {
+    private byte mayus;
+    private byte minus;
+    private byte nums;
+    public Password(byte tamanio, boolean mayus, boolean minus, boolean nums) {
         this.tamanio = tamanio;
+        if (mayus) {
+            this.mayus=1;
+        }else{
+            this.mayus=0;
+        }
+        if (minus) {
+            this.minus=1;
+        }else{
+            this.minus=0;
+        }
+        if (nums) {
+            this.nums=1;
+        }else{
+            this.nums=0;
+        }
         this.contraseña = generandoContraseñas();
         
+        
     }
-    public String generandoContraseñas(){
+    private String generandoContraseñas(){
         String password = "";
+        int caracteres = this.mayus + this.minus + this.nums;
          for (int i = 0; i < tamanio; i++) {
             
-            int eleccion=((int) Math.floor(Math.random()*3+1));
+            int eleccion=((int) Math.floor(Math.random()*caracteres+1));
             
             
             switch (eleccion){
@@ -44,7 +63,7 @@ public class Password {
     
     @Override 
     public String toString(){
-    return "La contraseña generada es: "+contraseña;
+    return "La contraseña generada es: \n"+contraseña;
     }  
    
     

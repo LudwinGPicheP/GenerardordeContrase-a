@@ -26,31 +26,104 @@ public class Ventana extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btn_generar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        sp_longitud = new javax.swing.JSpinner();
+        cb_minusculas = new javax.swing.JCheckBox();
+        cb_mayusculas = new javax.swing.JCheckBox();
+        cb_numeros = new javax.swing.JCheckBox();
+        lb_mostrar_contraseña = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        btn_generar.setText("Generar");
+        btn_generar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_generarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Generador de Contraseña");
+
+        jLabel2.setText("Tamaño");
+
+        sp_longitud.setModel(new javax.swing.SpinnerNumberModel(8, 5, 30, 1));
+
+        cb_minusculas.setSelected(true);
+        cb_minusculas.setText("Minúsculas");
+
+        cb_mayusculas.setText("Mayúsculas");
+
+        cb_numeros.setText("Números");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(177, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(145, 145, 145))
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(sp_longitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(cb_minusculas)
+                        .addGap(18, 18, 18)
+                        .addComponent(cb_mayusculas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cb_numeros)))
+                .addGap(59, 59, 59))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
+                        .addComponent(btn_generar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(lb_mostrar_contraseña)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(34, 34, 34))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_minusculas)
+                    .addComponent(cb_mayusculas)
+                    .addComponent(cb_numeros)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sp_longitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_generar)
+                .addGap(35, 35, 35)
+                .addComponent(lb_mostrar_contraseña)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_generarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generarActionPerformed
+        // TODO add your handling code here:
+        /*boolean my=cb_mayusculas.isSelected();
+        boolean ms=cb_minusculas.isSelected();
+        boolean nm=cb_numeros.isSelected();*/
+        int longitud = (int) sp_longitud.getValue();
+        byte tamanio=(byte)longitud;
+        Password contrasenia=new Password(tamanio,cb_mayusculas.isSelected(),cb_minusculas.isSelected(),cb_numeros.isSelected());
+        String psswrd=contrasenia.toString();
+        lb_mostrar_contraseña.setText(""+psswrd);
+        
+    }//GEN-LAST:event_btn_generarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,6 +161,13 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_generar;
+    private javax.swing.JCheckBox cb_mayusculas;
+    private javax.swing.JCheckBox cb_minusculas;
+    private javax.swing.JCheckBox cb_numeros;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lb_mostrar_contraseña;
+    private javax.swing.JSpinner sp_longitud;
     // End of variables declaration//GEN-END:variables
 }
