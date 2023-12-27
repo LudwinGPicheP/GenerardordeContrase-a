@@ -11,7 +11,9 @@ import javax.swing.JOptionPane;
  * @author luna
  */
 public class Ventana extends javax.swing.JFrame {
+
     Password contrasenia;
+
     /**
      * Creates new form Ventana
      */
@@ -39,6 +41,7 @@ public class Ventana extends javax.swing.JFrame {
         btn_copiar_contrasenia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         btn_generar.setText("Generar");
         btn_generar.addActionListener(new java.awt.event.ActionListener() {
@@ -142,17 +145,7 @@ public class Ventana extends javax.swing.JFrame {
 
     private void btn_copiar_contraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_copiar_contraseniaActionPerformed
         // TODO add your handling code here:
-        String contrasenia_copiada = contrasenia.getContraseña();
-        if (!contrasenia_copiada.isEmpty()) {
-            java.awt.datatransfer.StringSelection stringSelection = new java.awt.datatransfer.StringSelection(contrasenia_copiada);
-            java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(stringSelection, null);
-            JOptionPane.showMessageDialog(this, "Contraseña copiada al portapapeles");
-
-        } else {
-            JOptionPane.showMessageDialog(this, "No hay contraseña para copiar");
-
-        }
+        contrasenia.copiarContraseñaAlPortapapeles();
     }//GEN-LAST:event_btn_copiar_contraseniaActionPerformed
 
     /**

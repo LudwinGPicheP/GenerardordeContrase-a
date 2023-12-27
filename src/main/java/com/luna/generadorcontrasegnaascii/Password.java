@@ -1,10 +1,13 @@
 package com.luna.generadorcontrasegnaascii;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author deadm
+ * Clase que representa un generador de contraseñas ASCII.
+ * @author Luna
  */
 public class Password {
 
@@ -14,6 +17,14 @@ public class Password {
     private boolean minus;
     private boolean nums;
 
+    /**
+     * Constructor de la clase Password.
+     *
+     * @param tamanio Tamaño de la contraseña a generar.
+     * @param mayus   Indica si se deben incluir letras mayúsculas en la contraseña.
+     * @param minus   Indica si se deben incluir letras minúsculas en la contraseña.
+     * @param nums    Indica si se deben incluir números en la contraseña.
+     */
     public Password(byte tamanio, boolean mayus, boolean minus, boolean nums) {
         this.tamanio = tamanio;
         if (mayus) {
@@ -34,12 +45,16 @@ public class Password {
         this.contraseña = generandoContraseñas();
 
     }
-
+    /**
+     * Genera una contraseña aleatoria según los criterios especificados.
+     *
+     * @return Contraseña generada.
+     */
     private String generandoContraseñas() {
         String password = "";
         int eleccion = 0;
         if (minus == false && mayus == false && nums == false) {
-            JOptionPane.showMessageDialog(null, "ERROR NO SE PUEDE GENERAR CONTRASEÑA \n SI NO SELECCIONA POR LO MENOS UNA OPCION");
+            JOptionPane.showMessageDialog(null, "ERROR NO SE PUEDE GENERAR CONTRASEÑA \nSI NO SELECCIONA POR LO MENOS UNA OPCION");
         } else {
             for (int i = 0; i < tamanio; i++) {
                 if (minus && mayus && nums) {
@@ -115,10 +130,34 @@ public class Password {
         return password;
     }
 
+    /**
+     * Obtiene la contraseña generada.
+     *
+     * @return Contraseña generada.
+     */
     public String getContraseña() {
         return contraseña;
     }
 
+    /**
+     * Copia la contraseña al portapapeles del sistema.
+     */
+    public void copiarContraseñaAlPortapapeles() {
+        String contrasenia_copiada = getContraseña();
+        if (!contrasenia_copiada.isEmpty()) {
+            StringSelection stringSelection = new StringSelection(contrasenia_copiada);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+            JOptionPane.showMessageDialog(null, "Contraseña copiada al portapapeles");
+
+        }
+    }
+
+    /**
+     * Sobrescribe el método toString para obtener una representación en cadena de la instancia.
+     *
+     * @return Representación en cadena de la contraseña generada.
+     */
     @Override
     public String toString() {
         return "La contraseña generada es: \n" + contraseña;
