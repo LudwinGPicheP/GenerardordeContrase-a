@@ -4,12 +4,14 @@
  */
 package com.luna.generadorcontrasegnaascii;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author luna
  */
 public class Ventana extends javax.swing.JFrame {
-
+    Password contrasenia;
     /**
      * Creates new form Ventana
      */
@@ -34,6 +36,7 @@ public class Ventana extends javax.swing.JFrame {
         cb_mayusculas = new javax.swing.JCheckBox();
         cb_numeros = new javax.swing.JCheckBox();
         lb_mostrar_contraseña = new javax.swing.JLabel();
+        btn_copiar_contrasenia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,25 +60,17 @@ public class Ventana extends javax.swing.JFrame {
 
         cb_numeros.setText("Números");
 
+        btn_copiar_contrasenia.setText("Copiar");
+        btn_copiar_contrasenia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_copiar_contraseniaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(sp_longitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(cb_minusculas)
-                        .addGap(18, 18, 18)
-                        .addComponent(cb_mayusculas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cb_numeros)))
-                .addGap(59, 59, 59))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -88,6 +83,26 @@ public class Ventana extends javax.swing.JFrame {
                         .addGap(204, 204, 204)
                         .addComponent(btn_generar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(71, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(sp_longitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(cb_minusculas)
+                                .addGap(18, 18, 18)
+                                .addComponent(cb_mayusculas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cb_numeros)))
+                        .addGap(59, 59, 59))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_copiar_contrasenia)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +121,9 @@ public class Ventana extends javax.swing.JFrame {
                 .addComponent(btn_generar)
                 .addGap(35, 35, 35)
                 .addComponent(lb_mostrar_contraseña)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addComponent(btn_copiar_contrasenia)
+                .addContainerGap())
         );
 
         pack();
@@ -114,16 +131,29 @@ public class Ventana extends javax.swing.JFrame {
 
     private void btn_generarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generarActionPerformed
         // TODO add your handling code here:
-        /*boolean my=cb_mayusculas.isSelected();
-        boolean ms=cb_minusculas.isSelected();
-        boolean nm=cb_numeros.isSelected();*/
+
         int longitud = (int) sp_longitud.getValue();
-        byte tamanio=(byte)longitud;
-        Password contrasenia=new Password(tamanio,cb_mayusculas.isSelected(),cb_minusculas.isSelected(),cb_numeros.isSelected());
-        String psswrd=contrasenia.toString();
-        lb_mostrar_contraseña.setText(""+psswrd);
-        
+        byte tamanio = (byte) longitud;
+        contrasenia = new Password(tamanio, cb_mayusculas.isSelected(), cb_minusculas.isSelected(), cb_numeros.isSelected());
+        String psswrd = contrasenia.toString();
+        lb_mostrar_contraseña.setText("" + psswrd);
+
     }//GEN-LAST:event_btn_generarActionPerformed
+
+    private void btn_copiar_contraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_copiar_contraseniaActionPerformed
+        // TODO add your handling code here:
+        String contrasenia_copiada = contrasenia.getContraseña();
+        if (!contrasenia_copiada.isEmpty()) {
+            java.awt.datatransfer.StringSelection stringSelection = new java.awt.datatransfer.StringSelection(contrasenia_copiada);
+            java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+            JOptionPane.showMessageDialog(this, "Contraseña copiada al portapapeles");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay contraseña para copiar");
+
+        }
+    }//GEN-LAST:event_btn_copiar_contraseniaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,6 +191,7 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_copiar_contrasenia;
     private javax.swing.JButton btn_generar;
     private javax.swing.JCheckBox cb_mayusculas;
     private javax.swing.JCheckBox cb_minusculas;

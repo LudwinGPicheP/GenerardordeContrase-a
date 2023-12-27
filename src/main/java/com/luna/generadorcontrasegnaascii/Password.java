@@ -115,6 +115,10 @@ public class Password {
         return password;
     }
 
+    public String getContraseña() {
+        return contraseña;
+    }
+
     @Override
     public String toString() {
         return "La contraseña generada es: \n" + contraseña;
